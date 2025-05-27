@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Training - Masters of Minds</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg,#ffe6fc6a 0%, #ffb3f65c 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Section */
+        .header {
+            background: linear-gradient(135deg, #f628c6 0%, #c420e6 100%);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+            padding-top: 60px;
+        }
+
+        .logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        .logo img {
+            height: 50px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .home-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 8px 16px;
+            background: transparent;
+            color: white;
+            text-decoration: none;
+            border: 2px solid white;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .home-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .nav-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 0 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 18px;
+            background: #ee8be1;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .btn:hover {
+            background: #ee8be1;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn.secondary {
+            background: transparent;
+            border: 2px solid white;
+        }
+
+        .btn.register-btn {
+            background: #ffffff;
+            color: #c520e5;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(200, 29, 216, 0.3);
+            font-size: 0.85rem;
+            padding: 8px 16px;
+        }
+
+        .btn.register-btn:hover {
+            background: #ffffff;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(29, 78, 216, 0.4);
+        }
+
+        .btn.view-programs {
+            font-size: 0.85rem;
+            padding: 8px 16px;
+        }
+
+        /* Program Caption */
+        .program-caption {
+            background: white;
+            margin: 30px 0;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(26, 95, 122, 0.1);
+            text-align: center;
+            border-left: 5px solid #f628c6;
+        }
+
+        .program-caption h2 {
+            color: #f34bdd;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .program-caption p {
+            color: #674769;
+            font-size: 1.1rem;
+        }
+
+        /* Image Slideshow */
+        .slideshow-container {
+            background: white;
+            margin: 30px 0;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(26, 95, 122, 0.1);
+        }
+
+        .slideshow {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .slide {
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            aspect-ratio: 16/9;
+            transition: opacity 0.8s ease-in-out;
+            visibility: hidden;
+        }
+        
+        .slide.active {
+            opacity: 1;
+            position: relative;
+            visibility: visible;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        .slide-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #694766fc;
+            color: white;
+            border: none;
+            padding: 15px 10px;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .slide-nav:hover {
+            background: rgb(122, 26, 109);
+        }
+
+        .prev {
+            left: 15px;
+        }
+
+        .next {
+            right: 15px;
+        }
+
+        /* Services Section */
+        .services-section {
+            background: white;
+            margin: 30px 0;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(26, 95, 122, 0.1);
+        }
+
+        .services-section h2 {
+            color: #f34bdd;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .service-category {
+            margin-bottom: 10px;
+            padding: 25px;
+            background: #ffe6fd;
+            border-radius: 12px;
+            border-left: 5px solid #f628c6;
+        }
+
+        .service-category h3 {
+            color: #f628c6;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .service-category .subtitle {
+            color: #81648b;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .service-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .service-list li {
+            margin: 10px 0;
+            padding: 8px 0;
+            padding-left: 20px;
+            position: relative;
+            color: #694766;
+        }
+
+        .service-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #f628c6;
+            font-weight: bold;
+        }
+
+        .service-list li::after{
+            color: #eebbe2
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #380a37 0%, #200521 100%);
+            color: white;
+            padding: 40px 0;
+            /* margin-top: 50px; */
+        }
+
+        .footer h3 {
+            color: #a83aa4;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .program-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .program-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .program-card h4 {
+            color: #a83aa8;
+            margin-bottom: 10px;
+        }
+
+        .program-card .btn {
+            margin-top: 15px;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+        }
+
+        /* Services Grid Layout */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        /* Responsive Design for Services */
+        @media (max-width: 768px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+                padding-top: 60px;
+            }
+
+            .logo {
+                top: 15px;
+                left: 15px;
+            }
+
+            .home-btn {
+                padding: 6px 12px;
+                font-size: 0.8rem;
+                top: 15px;
+                right: 15px;
+            }
+
+            .nav-buttons {
+                gap: 10px;
+                padding: 0 10px;
+                overflow-x: auto;
+                justify-content: center;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }
+
+            .nav-buttons::-webkit-scrollbar {
+                display: none;
+            }
+
+            .btn {
+                padding: 8px 14px;
+                font-size: 0.8rem;
+                flex-shrink: 0;
+            }
+
+            .slide-nav {
+                padding: 10px 8px;
+                font-size: 16px;
+            }
+
+            .programs-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Touch/Swipe Support */
+        .slideshow {
+            touch-action: pan-y;
+        }
+
+        .one {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <div class="logo">
+                <img src="../photos/MoM logo.jpg" alt="Masters of Minds Logo">
+            </div>
+            
+            <a href="../index.html" class="home-btn">Go Home</a>
+            
+            <h1>Teacher Training</h1>
+            
+            <nav class="nav-buttons">
+                <a href="../index.html#contact" class="btn register-btn">Register Now</a>
+                <a href="#footer" class="btn view-programs">View Other Programs</a>
+            </nav>
+        </header>
+
+        <!-- Program Caption -->
+        <section class="program-caption">
+            <h2>"Empowering Educators for Better Learning."</h2>
+            <p class="one">Skill Development for Teachers to Enhance Their Teaching Abilities.</p>
+        </section>
+
+        <!-- Image Slideshow -->
+        <section class="slideshow-container">
+            <div class="slideshow" id="slideshow">
+                <div class="slide active">
+                    <img src="../photos/static/teachers/t3.jpg" alt="Teacher Training Program">
+                </div>
+                <div class="slide">
+                    <img src="../photos/static/teachers/t1.jpg" alt="Classroom Management">
+                </div>
+                <div class="slide">
+                    <img src="../photos/static/teachers/t2.jpg" alt="Educational Leadership">
+                </div>
+                
+                <button class="slide-nav prev" onclick="changeSlide(-1)">&#10094;</button>
+                <button class="slide-nav next" onclick="changeSlide(1)">&#10095;</button>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section class="services-section">
+            <h2>Our Services</h2>
+            <div class="services-grid">
+
+                <div class="service-category">
+                    <h3>Self-Strengthening</h3>
+                    <p class="subtitle one">Be the Change; It Changes Generations.</p>
+                    <ul class="service-list">
+                        <li>Conscious healthy routine at home.</li>
+                        <li>Learning smart dedications at Home.</li>
+                        <li>Learning every moment with creativity.</li>
+                    </ul>
+                </div>
+
+                <div class="service-category">
+                    <h3>Teachers Empowerment for Modern Generation</h3>
+                    <p class="subtitle one">Great Teachers = Unstoppable Students.</p>
+                    <ul class="service-list">
+                        <li>Understanding the social influences on students'.</li>
+                        <li>Ways to transform class room into cognitive play area.</li>
+                        <li>Making self-learning system and strategies in Classroom.</li>
+                    </ul>
+                </div>
+            
+                <div class="service-category">
+                    <h3>Handling Learning Related Challenges</h3>
+                    <p class="subtitle one">Your support will do Miracles.</p>
+                    <ul class="service-list">
+                        <li>Learning to understand and identify LRC.</li>
+                        <li> Ways to bridge their challenges and academics.</li>
+                        <li>Connecting circle of positive supports.</li>
+                    </ul>
+                </div>
+            
+                <div class="service-category">
+                    <h3>Parent-Teacher Collaboration</h3>
+                    <p class="subtitle one">Gives Unshakable Pleasant Grip.</p>
+                    <ul class="service-list">
+                        <li>Conducting periodic meetings effectively.</li>
+                        <li>Ways to improve communication strategies.</li>
+                        <li>Making parent to participate aligning with education goals.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" id="footer">
+        <div class="container">
+            <h3>All Programs</h3>
+            <div class="programs-grid">
+                <div class="program-card">
+                    <h4>One-to-One Counselling</h4>
+                    <p>Personal guidance and support</p>
+                    <a href="counseling.html" class="btn">Visit</a>
+                </div>
+                <div class="program-card">
+                    <h4>Child and Adolescent Development</h4>
+                    <p>Nurturing young minds</p>
+                    <a href="children.html" class="btn">Visit</a>
+                </div>
+                <div class="program-card">
+                    <h4>Power of Parents</h4>
+                    <p>Empowering parents</p>
+                    <a href="parental.html" class="btn">Visit</a>
+                </div>
+                <div class="program-card">
+                    <h4>Organizational Programs</h4>
+                    <p>Building strong communities</p>
+                    <a href="institutional.html" class="btn">Visit</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="common.js"></script>
+</body>
+</html>
